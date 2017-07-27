@@ -1,0 +1,26 @@
+server:
+  port: 8000
+  
+debug: true
+
+security:
+   oauth2:
+     client:
+        accessTokenUri: http://10.145.64.144:8080/auth/oauth/token
+        userAuthorizationUri: http://10.145.64.144:8080/auth/oauth/authorize
+        clientId: my-client-app
+        clientSecret: password;
+#        grantType: client_credentials
+     resource:
+        userInfoUri: http://10.145.64.144:8080/auth/user
+        tokenInfoUri: http://10.145.64.144:8080/auth/oauth/check_token
+   user:
+     name: user
+     password: password
+     
+zuul:
+  routes:
+    Oauth2ResourceServer:
+         path: /**
+         url: http://10.145.64.144:8081/
+         sensitive-headers: Cookie,Set-Cookie
